@@ -16,7 +16,7 @@
 // https://console.firebase.google.com/project/myfirebaseproject-b6c78/overview
 // then FIREBASE_HOST will look like this
 // "myfirebaseproject-b6c78.firebaseio.com"
-#define FIREBASE_HOST "test-iot-project-36036.firebaseio.com"
+#define FIREBASE_HOST "example.firebaseio.com"
 // Sensor configs
 // Change sensor pin number if needed
 #define DHT_PIN 5
