@@ -7,8 +7,8 @@
 #include <DHT.h>
 
 // WiFi configs
-#define WIFI_SSID "WIFI_SSID"
-#define WIFI_PASSWORD "WIFI_PASSWORD"
+#define WIFI_SSID "SSID"
+#define WIFI_PASSWORD "PASSWORD"
 // Firebase configs
 // Change "example" to the ID of the project
 // If you link to the admin panel looking like this
@@ -57,19 +57,19 @@ void loop(){
     return;
   }
   // Printing received data to the console
-  String serverTimestamp = "{\".sv\": \"timestamp\"}";
-  String temperatureStr = String(t);
-  String humidityStr = String(h);
-  String dataJson = "{\"temperature\": " + temperatureStr + ", \"humidity\": " + humidityStr + ", \"updated\": " + serverTimestamp + "}";
-  Serial.println("Sending JSON data: " + dataJson);
-  Firebase.setJsonString("sensor/current", dataJson);
-
-  Firebase.pushJsonString("sensor/history", dataJson);
+  Serial.print("Humidity: ");
+  Serial.print(h);
+  Serial.print(", temperature: ");
+  Serial.println(t);
+  // Writing temperature to the Firebase with path "/temperature"
+  Firebase.setFloat("temperature", t);
+  // Check if operation succeed
   if (Firebase.failed()) {
-      Serial.print("Pushing data failed");
+      Serial.print("Setting data failed");
       return;
   }
-
+  // Writing humidity to the Firebase with path "/humidity"
+  Firebase.setFloat("humidity", h);
   // Check if operation succeed
   if (Firebase.failed()) {
       Serial.print("Setting data failed");
