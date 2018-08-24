@@ -7,14 +7,9 @@
 #include <DHT.h>
 
 // WiFi configs
-<<<<<<< HEAD
 #define WIFI_SSID "SSID"
 #define WIFI_PASSWORD "PASSWORD"
-=======
-#define WIFI_SSID "HappyHouse"
-#define WIFI_PASSWORD "15537011"
 
->>>>>>> d41c200b4f07f182c4844d38ede3536d3438fc63
 // Firebase configs
 // Change "example" to the ID of the project
 // If you link to the admin panel looking like this
