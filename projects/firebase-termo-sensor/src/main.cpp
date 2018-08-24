@@ -7,15 +7,21 @@
 #include <DHT.h>
 
 // WiFi configs
+<<<<<<< HEAD
 #define WIFI_SSID "SSID"
 #define WIFI_PASSWORD "PASSWORD"
+=======
+#define WIFI_SSID "HappyHouse"
+#define WIFI_PASSWORD "15537011"
+
+>>>>>>> d41c200b4f07f182c4844d38ede3536d3438fc63
 // Firebase configs
 // Change "example" to the ID of the project
 // If you link to the admin panel looking like this
 // https://console.firebase.google.com/project/myfirebaseproject-b6c78/overview
 // then FIREBASE_HOST will look like this
 // "myfirebaseproject-b6c78.firebaseio.com"
-#define FIREBASE_HOST "example.firebaseio.com"
+#define FIREBASE_HOST "test-iot-project-36036.firebaseio.com"
 // Sensor configs
 // Change sensor pin number if needed
 #define DHT_PIN 5
