@@ -174,7 +174,7 @@ FirebasePush::FirebasePush(const std::string& host, const std::string& auth,
   }
 }
 
-// FirebaseRemove
+// FirebasePush
 FirebaseRemove::FirebaseRemove(const std::string& host, const std::string& auth,
                                const std::string& path,
                                FirebaseHttpClient* http)
