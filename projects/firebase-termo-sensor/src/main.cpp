@@ -7,15 +7,15 @@
 #include <DHT.h>
 
 // WiFi configs
-#define WIFI_SSID "SSID"
-#define WIFI_PASSWORD "PASSWORD"
+#define WIFI_SSID "HappyHouse"
+#define WIFI_PASSWORD "15537011"
 // Firebase configs
 // Change "example" to the ID of the project
 // If you link to the admin panel looking like this
 // https://console.firebase.google.com/project/myfirebaseproject-b6c78/overview
 // then FIREBASE_HOST will look like this
 // "myfirebaseproject-b6c78.firebaseio.com"
-#define FIREBASE_HOST "example.firebaseio.com"
+#define FIREBASE_HOST "test-iot-project-36036.firebaseio.com"
 // Sensor configs
 // Change sensor pin number if needed
 #define DHT_PIN 5
@@ -56,21 +56,24 @@ void loop(){
     // If not - making delay and trying agatin
     return;
   }
-
-  // Writing temperature to the Firebase with path "/temperature"
-  Firebase.setFloat("temperature", t);
-
+  // Printing received data to the console
   String serverTimestamp = "{\".sv\": \"timestamp\"}";
   String temperatureStr = String(t);
   String humidityStr = String(h);
   String dataJson = "{\"temperature\": " + temperatureStr + ", \"humidity\": " + humidityStr + ", \"updated\": " + serverTimestamp + "}";
   Serial.println("Sending JSON data: " + dataJson);
   Firebase.setJsonString("sensor/current", dataJson);
+
+  Firebase.pushJsonString("sensor/history", dataJson);
+  if (Firebase.failed()) {
+      Serial.print("Pushing data failed");
+      return;
+  }
+
   // Check if operation succeed
   if (Firebase.failed()) {
       Serial.print("Setting data failed");
       return;
   }
-  
   Serial.println("Data has been updated");
 }
