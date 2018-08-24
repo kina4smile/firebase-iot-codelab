@@ -74,6 +74,16 @@ class FirebaseArduino {
    * Equivalent to the REST API's POST.
    * You should check success() after calling.
    * \param path The path of the parent node.
+   * \param value JSON string value that you wish to append to the node.
+   * \return The unique key of the new child node.
+   */
+  String pushJsonString(const String& path, const String& jsonValue);
+
+  /**
+   * Appends the String value to the node at path.
+   * Equivalent to the REST API's POST.
+   * You should check success() after calling.
+   * \param path The path of the parent node.
    * \param value String value that you wish to append to the node.
    * \return The unique key of the new child node.
    */

@@ -9,6 +9,7 @@
 // WiFi configs
 #define WIFI_SSID "HappyHouse"
 #define WIFI_PASSWORD "15537011"
+
 // Firebase configs
 // Change "example" to the ID of the project
 // If you link to the admin panel looking like this
