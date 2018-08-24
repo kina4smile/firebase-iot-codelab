@@ -51,6 +51,12 @@ String FirebaseArduino::push(const String& path, const JsonVariant& value) {
   return push.name().c_str();
 }
 
+String FirebaseArduino::pushJsonString(const String& path, const String& jsonValue) {
+  auto push = FirebasePush(host_, auth_, path.c_str(), jsonValue.c_str(), http_.get());
+  error_ = push.error();
+  return push.name().c_str();
+}
+
 void FirebaseArduino::setInt(const String& path, int value) {
   set(path, value);
 }
