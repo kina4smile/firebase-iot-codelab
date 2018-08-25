@@ -5,15 +5,15 @@
 #include <FirebaseArduino.h>
 
 // WiFi configs
-#define WIFI_SSID "SSID"
-#define WIFI_PASSWORD "PASSWORD"
+#define WIFI_SSID "HappyHouse"
+#define WIFI_PASSWORD "15537011"
 // Firebase configs
 // Change "example" to the ID of the project
 // If you link to the admin panel looking like this
 // https://console.firebase.google.com/project/myfirebaseproject-b6c78/overview
 // then FIREBASE_HOST will look like this
 // "myfirebaseproject-b6c78.firebaseio.com"
-#define FIREBASE_HOST "example.firebaseio.com"
+#define FIREBASE_HOST "test-iot-project-36036.firebaseio.com"
 
 #define RED_PIN 13
 #define GREEN_PIN 14

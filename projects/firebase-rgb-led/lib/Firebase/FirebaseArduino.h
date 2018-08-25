@@ -74,20 +74,20 @@ class FirebaseArduino {
    * Equivalent to the REST API's POST.
    * You should check success() after calling.
    * \param path The path of the parent node.
-   * \param value String value that you wish to append to the node.
+   * \param value JSON string value that you wish to append to the node.
    * \return The unique key of the new child node.
    */
-  String pushString(const String& path, const String& value);
+  String pushJsonString(const String& path, const String& jsonValue);
 
   /**
    * Appends the String value to the node at path.
    * Equivalent to the REST API's POST.
    * You should check success() after calling.
    * \param path The path of the parent node.
-   * \param value JSON string value that you wish to append to the node.
+   * \param value String value that you wish to append to the node.
    * \return The unique key of the new child node.
    */
-  String pushJsonString(const String& path, const String& jsonValue);
+  String pushString(const String& path, const String& value);
 
   /**
    * Appends the JSON data to the node at path.
@@ -136,14 +136,14 @@ class FirebaseArduino {
   void setString(const String& path, const String& value);
 
   /**
-   * Writes the String value to the node located at path equivalent to the
-   * REST API's PUT.
-   * You should check success() after calling.
-   * \param path The path inside of your db to the node you wish to update.
-   * \param value JSON string value that you wish to write.
-   */
+  * Writes the String value to the node located at path equivalent to the
+  * REST API's PUT.
+  * You should check success() after calling.
+  * \param path The path inside of your db to the node you wish to update.
+  * \param value JSON string value that you wish to write.
+  */
 
-  void setJsonString(const String& path, const String& jsonValue);
+ void setJsonString(const String& path, const String& jsonValue);
 
   /**
    * Writes the JSON data to the node located at path.

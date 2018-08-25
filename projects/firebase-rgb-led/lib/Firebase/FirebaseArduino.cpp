@@ -43,16 +43,16 @@ String FirebaseArduino::pushString(const String& path, const String& value) {
   return push(path, json);
 }
 
-String FirebaseArduino::pushJsonString(const String& path, const String& jsonValue) {
-  auto push = FirebasePush(host_, auth_, path.c_str(), jsonValue.c_str(), http_.get());
-  error_ = push.error();
-  return push.name().c_str();
-}
-
 String FirebaseArduino::push(const String& path, const JsonVariant& value) {
   String buf;
   value.printTo(buf);
   auto push = FirebasePush(host_, auth_, path.c_str(), buf.c_str(), http_.get());
+  error_ = push.error();
+  return push.name().c_str();
+}
+
+String FirebaseArduino::pushJsonString(const String& path, const String& jsonValue) {
+  auto push = FirebasePush(host_, auth_, path.c_str(), jsonValue.c_str(), http_.get());
   error_ = push.error();
   return push.name().c_str();
 }
