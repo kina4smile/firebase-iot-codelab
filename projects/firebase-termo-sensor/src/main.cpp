@@ -4,8 +4,7 @@
 #include <ESP8266WebServer.h>
 #include <FirebaseArduino.h>
 #include <Adafruit_Sensor.h>
-#include <DHT.h>
-
+#include <Servo.h>
 // WiFi configs
 #define WIFI_SSID "HappyHouse"
 #define WIFI_PASSWORD "15537011"
@@ -19,62 +18,41 @@
 #define FIREBASE_HOST "test-iot-project-36036.firebaseio.com"
 // Sensor configs
 // Change sensor pin number if needed
-#define DHT_PIN 5
-#define DHT_TYPE DHT11
-DHT dht(DHT_PIN, DHT_TYPE);
+// Servo
+#define SERVO_PIN 4
+Servo myServo;
+int angle = 0;
+int lastAngle = 0;
 
 void setup(){
-  // Starting serial port
-  Serial.begin(115200);
-  // Connecting to the WiFi
-  WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  Serial.print("Connecting");
-  while (WiFi.status() != WL_CONNECTED) {
-    // Printing single dot to the console and waiting
-    // while status will changed to the WL_CONNECTED
-    Serial.print(".");
-    delay(500);
-  }
-  // Printing local IP address
-  Serial.println();
-  Serial.print("Connected: ");
-  Serial.println(WiFi.localIP());
-  // Connecting to the Firebase
-  Firebase.begin(FIREBASE_HOST);
-  // Start listening DHT sernsor
-  Serial.println("Starting DHT sernsor");
-  dht.begin();
+    // Starting serial port
+    Serial.begin(115200);
+    // Connect to the WiFi
+    WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+    Serial.print("Connecting");
+    while (WiFi.status() != WL_CONNECTED) {
+        Serial.print(".");
+        delay(500);
+    }
+    Serial.println();
+    Serial.print("Connected: ");
+    Serial.println(WiFi.localIP());
+    // Connecting to the Firebase
+    Firebase.begin(FIREBASE_HOST);
+    // Servo
+    myServo.attach(SERVO_PIN);
+    myServo.write(0);
 }
 
 void loop(){
-  delay(2000);
-  // Reading sensor data
-  float h = dht.readHumidity();
-  float t = dht.readTemperature();
-  // Check if is data is correct
-  if (isnan(h) || isnan(t)) {
-    Serial.println("Failed to read from DHT sensor!");
-    // If not - making delay and trying agatin
-    return;
+    angle = Firebase.getInt("servo/angle");
+    if(Firebase.failed()) {
+        Serial.println("Getting data from Firebase failed");
+        delay(1000);
+    }else if(angle != lastAngle){
+        Serial.print("Angle changed: ");
+        Serial.println(angle);
+        myServo.write(angle);
+        lastAngle = angle;
   }
-  // Printing received data to the console
-  String serverTimestamp = "{\".sv\": \"timestamp\"}";
-  String temperatureStr = String(t);
-  String humidityStr = String(h);
-  String dataJson = "{\"temperature\": " + temperatureStr + ", \"humidity\": " + humidityStr + ", \"updated\": " + serverTimestamp + "}";
-  Serial.println("Sending JSON data: " + dataJson);
-  Firebase.setJsonString("sensor/current", dataJson);
-
-  Firebase.pushJsonString("sensor/history", dataJson);
-  if (Firebase.failed()) {
-      Serial.print("Pushing data failed");
-      return;
-  }
-
-  // Check if operation succeed
-  if (Firebase.failed()) {
-      Serial.print("Setting data failed");
-      return;
-  }
-  Serial.println("Data has been updated");
 }
